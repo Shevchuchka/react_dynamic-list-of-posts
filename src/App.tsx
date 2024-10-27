@@ -21,13 +21,17 @@ export const App = () => {
 
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    getUsers().then(setUsers);
+    getUsers()
+      .then(setUsers)
+      .catch(newError => {
+        throw newError;
+      });
   }, []);
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export const App = () => {
 
       getUserPosts(selectedUser.id)
         .then(setUserPosts)
-        .catch(() => setError(true))
+        .catch(() => setError('Something went wrong!'))
         .finally(() => setLoading(false));
     }
   }, [selectedUser]);
@@ -87,7 +91,7 @@ export const App = () => {
                     className="notification is-danger"
                     data-cy="PostsLoadingError"
                   >
-                    Something went wrong!
+                    {error}
                   </div>
                 )}
               </div>

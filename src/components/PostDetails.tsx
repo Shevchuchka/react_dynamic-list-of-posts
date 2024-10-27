@@ -20,7 +20,9 @@ export const PostDetails: React.FC<Props> = ({
 
   const [buttonLoader, setButtonLoader] = useState(false);
   const [commentLoader, setCommentLoader] = useState(false);
-  const [commentError, setCommentError] = useState(false);
+  const [commentError, setCommentError] = useState('');
+
+  const errorMessage = 'Something went wrong';
 
   useEffect(() => {
     if (selectedPost) {
@@ -28,7 +30,7 @@ export const PostDetails: React.FC<Props> = ({
 
       getComments(selectedPost.id)
         .then(setComments)
-        .catch(() => setCommentError(true))
+        .catch(() => setCommentError(errorMessage))
         .finally(() => setCommentLoader(false));
     }
   }, [selectedPost, setComments]);
@@ -41,7 +43,7 @@ export const PostDetails: React.FC<Props> = ({
     return addComment({ postId, name, email, body })
       .then(newComment => setComments([...comments, newComment]))
       .catch(() => {
-        setCommentError(true);
+        setCommentError(errorMessage);
       })
       .finally(() => setButtonLoader(false));
   };
@@ -74,7 +76,7 @@ export const PostDetails: React.FC<Props> = ({
 
           {commentError && (
             <div className="notification is-danger" data-cy="CommentsError">
-              Something went wrong
+              {errorMessage}
             </div>
           )}
 
@@ -142,6 +144,3 @@ export const PostDetails: React.FC<Props> = ({
     </div>
   );
 };
-
-{
-}

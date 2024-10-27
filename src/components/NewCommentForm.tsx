@@ -9,7 +9,7 @@ type Props = {
 
 export const NewCommentForm: React.FC<Props> = ({
   buttonLoader,
-  addFunction = () => {},
+  addFunction,
 }) => {
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState(false);
@@ -39,8 +39,8 @@ export const NewCommentForm: React.FC<Props> = ({
     return value.trim();
   };
 
-  const onSubmit = () => {
-    event?.preventDefault();
+  const onSubmit = (event: React.FormEvent | React.MouseEvent) => {
+    event.preventDefault();
 
     setName(normalizeValue(name));
     setNameError(!name);
@@ -72,7 +72,7 @@ export const NewCommentForm: React.FC<Props> = ({
   };
 
   return (
-    <form data-cy="NewCommentForm" onSubmit={onSubmit}>
+    <form data-cy="NewCommentForm" onSubmit={event => onSubmit(event)}>
       <div className="field" data-cy="NameField">
         <label className="label" htmlFor="comment-author-name">
           Author Name
@@ -173,7 +173,9 @@ export const NewCommentForm: React.FC<Props> = ({
         <div className="control">
           <button
             type="submit"
-            onClick={onSubmit}
+            onClick={event => {
+              onSubmit(event);
+            }}
             className={classNames('button is-link', {
               'is-loading': buttonLoader,
             })}
