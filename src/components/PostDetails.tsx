@@ -14,7 +14,7 @@ type Props = {
 export const PostDetails: React.FC<Props> = ({
   selectedPost,
   showForm,
-  setShowForm = () => {},
+  setShowForm,
 }) => {
   const [comments, setComments] = useState<Comment[]>([]);
 

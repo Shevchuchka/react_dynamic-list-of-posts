@@ -13,7 +13,7 @@ export const PostsList: React.FC<Props> = ({
   userPosts,
   selectedPost,
   setShowForm,
-  setSelectedPost = () => {},
+  setSelectedPost,
 }) => {
   const openPostFunction = (postToSelect: Post) => {
     if (selectedPost && selectedPost.id === postToSelect.id) {

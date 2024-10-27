@@ -14,7 +14,7 @@ export const UserSelector: React.FC<Props> = ({
   users,
   selectedUser,
   setSelectedUser,
-  setSelectedPost = () => {},
+  setSelectedPost,
 }) => {
   const [menuVisibility, setMenuVisibility] = useState(false);
 
