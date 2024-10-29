@@ -29,10 +29,13 @@ export const UserSelector: React.FC<Props> = ({
     setMenuVisibility(false);
   };
 
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const handleClickOutside = () => {
-    if (dropdownRef.current) {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setMenuVisibility(false);
     }
   };

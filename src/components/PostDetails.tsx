@@ -53,7 +53,7 @@ export const PostDetails: React.FC<Props> = ({
       return currentCommenst.filter(comment => comment.id !== commentId);
     });
 
-    deleteComment(commentId)
+    deleteComment(commentId);
   };
 
   return (
