@@ -54,10 +54,6 @@ export const PostDetails: React.FC<Props> = ({
     });
 
     deleteComment(commentId)
-      .then(() => {})
-      .catch(error => {
-        throw error;
-      });
   };
 
   return (
