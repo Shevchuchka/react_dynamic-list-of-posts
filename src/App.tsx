@@ -97,7 +97,6 @@ export const App = () => {
               </div>
             </div>
           </div>
-
           <div
             data-cy="Sidebar"
             className={classNames(
@@ -109,11 +108,13 @@ export const App = () => {
             )}
           >
             <div className="tile is-child box is-success">
-              <PostDetails
-                selectedPost={selectedPost}
-                showForm={showForm}
-                setShowForm={setShowForm}
-              />
+              {selectedPost && (
+                <PostDetails
+                  selectedPost={selectedPost}
+                  showForm={showForm}
+                  setShowForm={setShowForm}
+                />
+              )}
             </div>
           </div>
         </div>
