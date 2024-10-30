@@ -108,14 +108,12 @@ export const App = () => {
               { 'Sidebar--open': selectedPost },
             )}
           >
-            <div className="tile is-child box is-success ">
-              {selectedPost && (
-                <PostDetails
-                  selectedPost={selectedPost}
-                  showForm={showForm}
-                  setShowForm={setShowForm}
-                />
-              )}
+            <div className="tile is-child box is-success">
+              <PostDetails
+                selectedPost={selectedPost}
+                showForm={showForm}
+                setShowForm={setShowForm}
+              />
             </div>
           </div>
         </div>

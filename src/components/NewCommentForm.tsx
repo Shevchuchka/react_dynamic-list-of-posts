@@ -13,45 +13,48 @@ export const NewCommentForm: React.FC<Props> = ({
 }) => {
   const [name, setName] = useState('');
   const [nameError, setNameError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [text, setText] = useState('');
+  const [textError, setTextError] = useState(false);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setNameError(false);
   };
 
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState(false);
-
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
     setEmailError(false);
   };
-
-  const [text, setText] = useState('');
-  const [textError, setTextError] = useState(false);
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
     setTextError(false);
   };
 
-  const normalizeValue = (value: string) => {
-    return value.trim();
+  const checkQuery = (
+    query: string,
+    setQuery: (query: string) => void,
+    error: (value: boolean) => void,
+  ) => {
+    const normalizedQuery = query.trim();
+    const isError = normalizedQuery.length === 0 || !query;
+
+    error(isError);
+    setQuery(normalizedQuery);
+
+    return isError;
   };
 
   const onSubmit = (event: React.FormEvent | React.MouseEvent) => {
     event.preventDefault();
 
-    setName(normalizeValue(name));
-    setNameError(!name);
+    const isNameError = checkQuery(name, setName, setNameError);
+    const isEmailError = checkQuery(email, setEmail, setEmailError);
+    const isTextError = checkQuery(text, setText, setTextError);
 
-    setEmail(normalizeValue(email));
-    setEmailError(!email);
-
-    setText(normalizeValue(text));
-    setTextError(!text);
-
-    if (!name || !email || !text) {
+    if (isNameError || isEmailError || isTextError) {
       return;
     }
 
@@ -116,7 +119,7 @@ export const NewCommentForm: React.FC<Props> = ({
 
         <div className="control has-icons-left has-icons-right">
           <input
-            type="text"
+            type="email"
             name="email"
             id="comment-author-email"
             placeholder="email@test.com"
